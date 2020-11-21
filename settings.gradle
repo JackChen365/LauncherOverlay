@@ -1,0 +1,6 @@
+include ':library'
+include ':main'
+include ':user'
+include ':search'
+include ':app'
+rootProject.name = "LauncherOverlay"
