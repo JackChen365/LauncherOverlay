@@ -10,8 +10,8 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.cz.launcher.overlay.library.ILauncherFixedOverlay;
-import com.cz.launcher.overlay.library.ILauncherFixedOverlayCallback;
+import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlay;
+import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
 import com.cz.launcher.overlay.sample.fixed.service.LauncherOverlayService;
 
 public class FixedServiceClient {

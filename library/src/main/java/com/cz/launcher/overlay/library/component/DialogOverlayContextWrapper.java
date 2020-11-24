@@ -24,8 +24,8 @@ import com.cz.launcher.overlay.library.R;
 public class DialogOverlayContextWrapper extends ContextThemeWrapper implements Callback {
 
     public WindowManager windowManager;
-    public final Window window;
     public View decorView;
+    public final Window window;
 
     public DialogOverlayContextWrapper(Context context, int theme) {
         super(context, theme);

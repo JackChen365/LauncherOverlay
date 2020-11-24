@@ -1,4 +1,4 @@
-package com.cz.launcher.overlay.sample.fixed.service;
+package com.cz.launcher.overlay.sample.scroll.service;
 
 
 import android.os.Bundle;
@@ -9,16 +9,17 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import com.cz.launcher.overlay.library.component.OverlayComponent;
 import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
+import com.cz.launcher.overlay.library.scroll.ILauncherScrollOverlayCallback;
+import com.cz.launcher.overlay.sample.scroll.component.ScrollOverlayComponent;
 
 /**
  * @author Created by cz
  * @date 11/20/20 11:39 AM
  * @email bingo110@126.com
  */
-public class LauncherOverlayCallback implements Handler.Callback {
-    private static final String TAG=LauncherOverlayCallback.class.getSimpleName();
+public class LauncherScrollOverlayCallback implements Handler.Callback {
+    private static final String TAG= LauncherScrollOverlayCallback.class.getSimpleName();
     public static final int MSG_OPEN_OVERLAY=1;
     public static final int MSG_CLOSE_OVERLAY=2;
     public static final int MSG_ATTACH_TO_WINDOW = 3;
@@ -29,10 +30,13 @@ public class LauncherOverlayCallback implements Handler.Callback {
     public static final int MSG_ON_RESUME = 8;
     public static final int MSG_ON_STOP = 9;
     public static final int MSG_ON_DESTROY = 10;
-    private LauncherOverlayComponent launcherOverlayComponent;
-    private OverlayComponent overlayComponent;
+    public static final int MSG_START_SCROLL = 11;
+    public static final int MSG_END_SCROLL = 12;
+    public static final int MSG_ON_SCROLL = 13;
+    private LauncherScrollOverlayComponent launcherOverlayComponent;
+    private ScrollOverlayComponent overlayComponent;
 
-    public LauncherOverlayCallback(LauncherOverlayComponent overlayComponent) {
+    public LauncherScrollOverlayCallback(LauncherScrollOverlayComponent overlayComponent) {
         this.launcherOverlayComponent = overlayComponent;
     }
 
@@ -67,9 +71,11 @@ public class LauncherOverlayCallback implements Handler.Callback {
                 break;
             case MSG_ON_CREATE:
                 Bundle data = message.getData();
-                ILauncherFixedOverlayCallback callbacks = (ILauncherFixedOverlayCallback) message.obj;
                 if (data != null&&overlayComponent.window != null) {
-                    overlayComponent.window.restoreHierarchyState(data.getBundle("view_state"));
+                    Bundle viewState = data.getBundle("view_state");
+                    if(null!=viewState){
+                        overlayComponent.window.restoreHierarchyState(viewState);
+                    }
                 }
                 overlayComponent.onCreate(data);
                 break;
@@ -97,6 +103,23 @@ public class LauncherOverlayCallback implements Handler.Callback {
             case MSG_ON_DESTROY:
                 if(null!=overlayComponent){
                     overlayComponent.onDestroy();
+                }
+                break;
+            case MSG_START_SCROLL:
+                if(null!=overlayComponent){
+                    overlayComponent.onStartScroll();
+                }
+                break;
+            case MSG_END_SCROLL:
+                if(null!=overlayComponent){
+                    overlayComponent.onEndScroll();
+                }
+                break;
+            case MSG_ON_SCROLL:
+                if(null!=overlayComponent){
+                    float progress= (float) message.obj;
+                    Log.i(TAG,"progress:"+progress);
+                    overlayComponent.onScroll(progress);
                 }
                 break;
         }

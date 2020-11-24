@@ -2,7 +2,9 @@ package com.cz.launcher.overlay.library.component;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,17 +13,17 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 
-import com.cz.launcher.overlay.library.ILauncherFixedOverlayCallback;
+import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
 
 public class OverlayComponent extends DialogOverlayContextWrapper {
     private static final String TAG="OverlayComponent";
-    public ILauncherFixedOverlayCallback callback;
     public int windowShift;
 
     public OverlayComponent(Context context, int theme) {
@@ -32,17 +34,17 @@ public class OverlayComponent extends DialogOverlayContextWrapper {
     public void onCreate(Bundle bundle) {
     }
 
+    @CallSuper
     public void onPreCreated(WindowManager.LayoutParams layoutParams) {
         window.setWindowManager(null, layoutParams.token,
                 new ComponentName(this, getBaseContext().getClass()).flattenToShortString(), true);
         windowManager = window.getWindowManager();
         windowShift = 0;
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,200f,displayMetrics);
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
-        layoutParams.gravity = Gravity.RIGHT;
+        layoutParams.gravity = Gravity.LEFT;
         layoutParams.format = PixelFormat.TRANSLUCENT;
         layoutParams.type = Build.VERSION.SDK_INT >= 25
                 ? WindowManager.LayoutParams.TYPE_DRAWN_APPLICATION
@@ -59,7 +61,7 @@ public class OverlayComponent extends DialogOverlayContextWrapper {
         decorView.setFitsSystemWindows(true);
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        windowManager.addView(this.decorView, window.getAttributes());
+        windowManager.addView(decorView, window.getAttributes());
     }
 
     public <T extends View> T findViewById(@IdRes int id){

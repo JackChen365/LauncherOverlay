@@ -1,4 +1,4 @@
-package com.cz.launcher.overlay.library;
+package com.cz.launcher.overlay.library.fixed;
 
 import android.os.Binder;
 import android.os.IBinder;

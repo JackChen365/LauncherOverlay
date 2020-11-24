@@ -9,9 +9,8 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import com.cz.launcher.overlay.library.ILauncherFixedOverlayCallback;
+import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
 import com.cz.launcher.overlay.library.component.OverlayComponent;
-import com.cz.launcher.overlay.sample.fixed.service.LauncherOverlayComponent;
 
 /**
  * @author Created by cz
@@ -72,7 +71,6 @@ public class LauncherSearchOverlayCallback implements Handler.Callback {
                 if (data != null&&overlayComponent.window != null) {
                     overlayComponent.window.restoreHierarchyState(data.getBundle("view_state"));
                 }
-                overlayComponent.callback = callbacks;
                 overlayComponent.onCreate(data);
                 break;
             case MSG_ON_START:

@@ -8,8 +8,8 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.view.WindowManager;
 
-import com.cz.launcher.overlay.library.ILauncherFixedOverlay;
-import com.cz.launcher.overlay.library.ILauncherFixedOverlayCallback;
+import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlay;
+import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
 
 public class LauncherOverlayFixedBinder extends ILauncherFixedOverlay.Stub{
     private final Handler dispatcher;

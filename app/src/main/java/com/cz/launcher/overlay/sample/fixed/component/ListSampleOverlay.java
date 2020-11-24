@@ -2,7 +2,11 @@ package com.cz.launcher.overlay.sample.fixed.component;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -26,9 +30,18 @@ public class ListSampleOverlay extends OverlayComponent {
     }
 
     @Override
+    public void onPreCreated(WindowManager.LayoutParams layoutParams) {
+        super.onPreCreated(layoutParams);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,200f,displayMetrics);
+        layoutParams.gravity = Gravity.RIGHT;
+        window.setAttributes(layoutParams);
+    }
+
+    @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.component_list);
 
         ListView listView=findViewById(R.id.listView);
         List<String> list=new ArrayList<>();
