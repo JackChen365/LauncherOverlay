@@ -29,7 +29,7 @@ public class DialogOverlayContextWrapper extends ContextThemeWrapper implements 
 
     public DialogOverlayContextWrapper(Context context, int theme) {
         super(context, theme);
-        Dialog dialog = new Dialog(context, R.style.WindowTheme);
+        Dialog dialog = new Dialog(context, R.style.TransparentWindowTheme);
         this.window = dialog.getWindow();
         if (window == null) {
             throw new IllegalStateException("new Dialog has no window?");

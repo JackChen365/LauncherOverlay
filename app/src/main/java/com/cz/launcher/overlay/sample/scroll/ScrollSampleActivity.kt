@@ -20,7 +20,7 @@ class ScrollSampleActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 if (position == 0) {
                     // Update the overlay scroll if we're at the left-most page
-                    launcherClient?.scroll(1f - positionOffset)
+                    launcherClient?.scroll(positionOffset)
                 }
             }
 

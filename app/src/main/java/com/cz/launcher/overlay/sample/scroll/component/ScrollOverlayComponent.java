@@ -1,12 +1,9 @@
 package com.cz.launcher.overlay.sample.scroll.component;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Process;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +15,7 @@ import com.cz.launcher.overlay.sample.R;
 import java.util.ArrayList;
 
 public class ScrollOverlayComponent extends OverlayComponent {
+    private static final String TAG="ScrollOverlayComponent";
     RecyclerView recyclerView;
     private ExampleAdapter adapter;
     private ArrayList<ExampleItem> exampleList;
@@ -26,20 +24,13 @@ public class ScrollOverlayComponent extends OverlayComponent {
     }
 
     @Override
-    public void onPreCreated(WindowManager.LayoutParams layoutParams) {
-        super.onPreCreated(layoutParams);
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,200f,displayMetrics);
-        window.setAttributes(layoutParams);
-    }
-
-    @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.component_search_layout);
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         decorView.setTranslationX(-displayMetrics.widthPixels);
-
+        TextView titleTextView=findViewById(R.id.titleTextView);
+        titleTextView.setText("Process:"+ Process.myPid());
         recyclerView = findViewById(R.id.recycler_view);
         fillExampleList();
         setUpRecyclerView();
@@ -81,10 +72,9 @@ public class ScrollOverlayComponent extends OverlayComponent {
     }
 
     public void onScroll(float progress){
-        View decorView = window.getDecorView();
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        float translationX = (progress * displayMetrics.widthPixels) - displayMetrics.widthPixels;
-        decorView.setTranslationX(-translationX);
+        int transitionX = (int) ((progress) * displayMetrics.widthPixels);
+        decorView.setTranslationX(transitionX);
     }
 
 }
