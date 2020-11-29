@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabLinearLayout">
+        <attr name="tab_selectColor" format="reference" />
+        <attr name="tab_selectHeight" format="dimension" />
+        <attr name="tab_selectFlag" format="reference" />
+    </declare-styleable>
+</resources>

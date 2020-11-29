@@ -9,11 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pager.PagerSampleActivity"></activity>
         <activity android:name=".scroll.ScrollSampleActivity" />
         <activity android:name=".dialog.DualScreenSampleActivity" />
         <activity android:name=".tab.TabSampleActivity" />
-        <activity android:name=".search.SearchSampleActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +23,6 @@
 
         <service
             android:name=".fixed.service.LauncherOverlayService"
-            android:enabled="true" />
-        <service
-            android:name=".search.service.LauncherSearchService"
             android:enabled="true" />
         <service
             android:name=".scroll.service.LauncherScrollOverlayService"

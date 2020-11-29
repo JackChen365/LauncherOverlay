@@ -63,12 +63,12 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         holder.textView1.setText(exampleItem.getText1());
         holder.textView2.setText(exampleItem.getText2());
 
-//        holder.cardViewParent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, exampleList.get(position).getText1() + " Clicked", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        holder.cardViewParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, exampleList.get(position).getText1() + " Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

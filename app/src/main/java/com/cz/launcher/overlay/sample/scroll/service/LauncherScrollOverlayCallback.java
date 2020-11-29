@@ -4,14 +4,17 @@ package com.cz.launcher.overlay.sample.scroll.service;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.InputDevice;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
 import com.cz.launcher.overlay.library.scroll.ILauncherScrollOverlayCallback;
-import com.cz.launcher.overlay.sample.scroll.component.ScrollOverlayComponent;
+import com.cz.launcher.overlay.sample.scroll.widget.ScrollOverlayComponent;
+import com.cz.launcher.overlay.sample.scroll.widget.SlidingPanelLayout;
 
 /**
  * @author Created by cz
@@ -19,7 +22,7 @@ import com.cz.launcher.overlay.sample.scroll.component.ScrollOverlayComponent;
  * @email bingo110@126.com
  */
 public class LauncherScrollOverlayCallback implements Handler.Callback {
-    private static final String TAG= LauncherScrollOverlayCallback.class.getSimpleName();
+    private static final String TAG= ILauncherScrollOverlayCallback.class.getSimpleName();
     public static final int MSG_OPEN_OVERLAY=1;
     public static final int MSG_CLOSE_OVERLAY=2;
     public static final int MSG_ATTACH_TO_WINDOW = 3;
@@ -118,11 +121,19 @@ public class LauncherScrollOverlayCallback implements Handler.Callback {
             case MSG_ON_SCROLL:
                 if(null!=overlayComponent){
                     float progress= (float) message.obj;
-                    Log.i(TAG,"progress:"+progress);
                     overlayComponent.onScroll(progress);
                 }
                 break;
         }
         return true;
     }
+
+    public final void dispatchTouchEvent(int action, int x, long eventTime) {
+        MotionEvent obtain = MotionEvent.obtain(SystemClock.uptimeMillis(), eventTime, action, (float) x, 10.0f, 0);
+        obtain.setSource(InputDevice.SOURCE_TOUCHSCREEN);//4098
+        SlidingPanelLayout slidingPanelLayout = overlayComponent.getSlidingPanelLayout();
+        slidingPanelLayout.dispatchTouchEvent(obtain);
+        obtain.recycle();
+    }
+
 }

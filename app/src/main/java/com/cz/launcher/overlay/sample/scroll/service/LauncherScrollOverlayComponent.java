@@ -9,7 +9,8 @@ import android.os.IBinder;
 import android.util.ArrayMap;
 
 import com.cz.launcher.overlay.sample.R;
-import com.cz.launcher.overlay.sample.scroll.component.ScrollOverlayComponent;
+import com.cz.launcher.overlay.sample.scroll.widget.ScrollOverlayComponent;
+import com.cz.launcher.overlay.sample.scroll.component.ScrollOverlaySampleComponent;
 
 public class LauncherScrollOverlayComponent {
     private static final String TAG= LauncherScrollOverlayComponent.class.getSimpleName();
@@ -60,6 +61,6 @@ public class LauncherScrollOverlayComponent {
     final ScrollOverlayComponent createOverlayComponent() {
         Configuration configuration = context.getResources().getConfiguration();
         Context localContext = context.createConfigurationContext(configuration);
-        return new ScrollOverlayComponent(localContext, R.style.AppTheme);
+        return new ScrollOverlaySampleComponent(localContext, R.style.AppTheme);
     }
 }

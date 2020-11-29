@@ -66,17 +66,6 @@ public class ScrollServiceClient {
         }
     }
 
-    public void endMove() {
-        if (!isConnected()) {
-            return;
-        }
-        try {
-            overlay.endScroll();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void hideOverlay(boolean animate) {
         if (overlay == null) {
             return;

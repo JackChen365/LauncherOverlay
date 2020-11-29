@@ -1,8 +1,7 @@
 package com.cz.launcher.overlay.sample.scroll
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.cz.launcher.overlay.sample.R
 import kotlinx.android.synthetic.main.activity_scroll_sample.*
@@ -20,21 +19,21 @@ class ScrollSampleActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 if (position == 0) {
                     // Update the overlay scroll if we're at the left-most page
-                    launcherClient?.scroll(positionOffset)
+                    launcherClient?.scroll(1 - positionOffset)
                 }
             }
 
             override fun onPageSelected(position: Int) {}
 
             override fun onPageScrollStateChanged(state: Int) {
-                if(ViewPager.SCROLL_STATE_IDLE == state){
-                        // Stop scroll and set current item to 1 as this is required for this demo
+                when (state) {
+                    ViewPager.SCROLL_STATE_DRAGGING -> launcherClient?.startScroll()
+                    ViewPager.SCROLL_STATE_IDLE -> {
                         launcherClient?.stopScroll()
-                } else if(ViewPager.SCROLL_STATE_DRAGGING == state){
-                    // Start scroll on both user drag and settling even to support usage of
-                    // viewPager.setCurrentItem(0, true). Setting current item without animating
-                    // is unsupported in this demo.
-                    launcherClient?.startScroll()
+                        if(0 == viewPager.currentItem){
+                            viewPager.setCurrentItem(1,false)
+                        }
+                    }
                 }
             }
         })

@@ -4,7 +4,7 @@
     android:id="@+id/cardViewParent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/md_white_1000">
+    android:background="@drawable/sample_white_item_selector">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
             android:id="@+id/image_view"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:background="?colorAccent"
             android:src="@drawable/ic_launcher_background"
             android:padding="2dp" />
 

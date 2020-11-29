@@ -3,4 +3,8 @@
     <string name="fixed_window_hint">左侧是当前应用Activity展示信息.属于当前Activity,当前进程</string>
     <string name="dialog_window_hint">左侧是当前应用Activity展示信息.右侧显示一个Dialog</string>
     <string name="no_results">No Results</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
