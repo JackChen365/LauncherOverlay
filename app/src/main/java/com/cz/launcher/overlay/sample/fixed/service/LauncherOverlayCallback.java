@@ -19,8 +19,8 @@ import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
  */
 public class LauncherOverlayCallback implements Handler.Callback {
     private static final String TAG=LauncherOverlayCallback.class.getSimpleName();
-    public static final int MSG_OPEN_OVERLAY=1;
-    public static final int MSG_CLOSE_OVERLAY=2;
+    public static final int MSG_SHOW_OVERLAY=1;
+    public static final int MSG_HIDE_OVERLAY=2;
     public static final int MSG_ATTACH_TO_WINDOW = 3;
     public static final int MSG_DETACH_FROM_WINDOW = 4;
     public static final int MSG_ON_CREATE = 5;
@@ -29,6 +29,7 @@ public class LauncherOverlayCallback implements Handler.Callback {
     public static final int MSG_ON_RESUME = 8;
     public static final int MSG_ON_STOP = 9;
     public static final int MSG_ON_DESTROY = 10;
+    public static final int MSG_IS_VISIBLE=11;
     private LauncherOverlayComponent launcherOverlayComponent;
     private OverlayComponent overlayComponent;
 
@@ -98,6 +99,12 @@ public class LauncherOverlayCallback implements Handler.Callback {
                 if(null!=overlayComponent){
                     overlayComponent.onDestroy();
                 }
+                break;
+            case MSG_SHOW_OVERLAY:
+                overlayComponent.show();
+                break;
+            case MSG_HIDE_OVERLAY:
+                overlayComponent.hide();
                 break;
         }
         return true;

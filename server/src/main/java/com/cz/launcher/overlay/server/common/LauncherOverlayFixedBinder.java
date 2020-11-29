@@ -31,7 +31,22 @@ public class LauncherOverlayFixedBinder extends ILauncherFixedOverlay.Stub{
 
     @Override
     public void onStop() {
-        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_CLOSE_OVERLAY));
+        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_ON_STOP));
+    }
+
+    @Override
+    public void show() throws RemoteException {
+        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_SHOW_OVERLAY));
+    }
+
+    @Override
+    public void hide() throws RemoteException {
+        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_HIDE_OVERLAY));
+    }
+
+    @Override
+    public void isVisible() throws RemoteException {
+        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_IS_VISIBLE));
     }
 
     @Override
@@ -44,18 +59,8 @@ public class LauncherOverlayFixedBinder extends ILauncherFixedOverlay.Stub{
     }
 
     @Override
-    public void openOverlay(int options) {
-        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_OPEN_OVERLAY));
-    }
-
-    @Override
-    public void closeOverlay(int options) {
-        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_CLOSE_OVERLAY));
-    }
-
-    @Override
     public void onStart() {
-        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_CLOSE_OVERLAY));
+        dispatchMessage(Message.obtain(dispatcher,LauncherOverlayCallback.MSG_ON_START));
     }
 
     @Override

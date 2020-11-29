@@ -46,8 +46,7 @@ public class OverlayComponent extends DialogOverlayContextWrapper {
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN|
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         layoutParams.gravity = Gravity.LEFT;
         layoutParams.format = PixelFormat.TRANSLUCENT;
         layoutParams.type = Build.VERSION.SDK_INT >= 25
@@ -115,5 +114,15 @@ public class OverlayComponent extends DialogOverlayContextWrapper {
 
     @Override
     public void onBackPressed() {
+    }
+
+    public void show() {
+        decorView.setVisibility(View.VISIBLE);
+        setTouchable(false);
+    }
+
+    public void hide(){
+        decorView.setVisibility(View.GONE);
+        setTouchable(false);
     }
 }

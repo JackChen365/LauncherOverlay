@@ -34,7 +34,7 @@ public class TabServiceClient {
         isResumed = false;
         isDestroyed = false;
         hostActivity = activity;
-        serviceIntent = new Intent(action).setClassName(SERVER_PACKAGE_NAME,serviceClassName);
+        serviceIntent = new Intent(action).setClassName(SERVER_PACKAGE_NAME,serviceClassName).setPackage(SERVER_PACKAGE_NAME);
         serviceConnection = new OverlayServiceConnection();
         windowAttrs =activity.getWindow().getAttributes();
     }
@@ -69,6 +69,30 @@ public class TabServiceClient {
 
     private boolean isConnected() {
         return overlay != null;
+    }
+
+    public void isVisible(){
+
+    }
+
+    public void show(){
+        if(isConnected()){
+            try {
+                overlay.show();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void hide(){
+        if(isConnected()){
+            try {
+                overlay.hide();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void reconnect() {

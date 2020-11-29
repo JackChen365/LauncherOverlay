@@ -8,8 +8,6 @@ import android.os.RemoteException;
 import android.view.WindowManager;
 
 public interface ILauncherFixedOverlay extends IInterface {
-    void closeOverlay(int options) throws RemoteException;
-
     void onStart() throws RemoteException;
 
     void onResume() throws RemoteException;
@@ -18,7 +16,11 @@ public interface ILauncherFixedOverlay extends IInterface {
 
     void onStop() throws RemoteException;
 
-    void openOverlay(int options) throws RemoteException;
+    void show() throws RemoteException;
+
+    void hide() throws RemoteException;
+
+    void isVisible() throws RemoteException;
 
     void onWindowAttached(WindowManager.LayoutParams attrs, ILauncherFixedOverlayCallback callbacks, int options) throws RemoteException;
 
@@ -31,8 +33,9 @@ public interface ILauncherFixedOverlay extends IInterface {
         static final int ON_RESUME_TRANSACTION = 4;
         static final int ON_START_TRANSACTION = 5;
         static final int ON_STOP_TRANSACTION = 6;
-        static final int OPEN_OVERLAY_TRANSACTION = 7;
-        static final int CLOSE_OVERLAY_TRANSACTION = 8;
+        static final int SHOW_TRANSACTION = 7;
+        static final int HIDE_TRANSACTION = 8;
+        static final int IS_VISIBLE_TRANSACTION = 9;
 
 
         public static ILauncherFixedOverlay asInterface(IBinder obj) {
@@ -68,10 +71,6 @@ public interface ILauncherFixedOverlay extends IInterface {
                     data.enforceInterface(ILauncherFixedOverlay.class.getName());
                     onWindowDetached(data.readInt() != 0);
                     return true;
-                case CLOSE_OVERLAY_TRANSACTION:
-                    data.enforceInterface(ILauncherFixedOverlay.class.getName());
-                    closeOverlay(data.readInt());
-                    return true;
                 case ON_PAUSE_TRANSACTION:
                     data.enforceInterface(ILauncherFixedOverlay.class.getName());
                     onPause();
@@ -88,9 +87,16 @@ public interface ILauncherFixedOverlay extends IInterface {
                     data.enforceInterface(ILauncherFixedOverlay.class.getName());
                     onStop();
                     return true;
-                case OPEN_OVERLAY_TRANSACTION:
+                case SHOW_TRANSACTION:
                     data.enforceInterface(ILauncherFixedOverlay.class.getName());
-                    openOverlay(data.readInt());
+                    show();
+                    return true;
+                case HIDE_TRANSACTION:
+                    data.enforceInterface(ILauncherFixedOverlay.class.getName());
+                    hide();
+                    return true;
+                case IS_VISIBLE_TRANSACTION:
+                    data.enforceInterface(ILauncherFixedOverlay.class.getName());
                     return true;
                 default:
                     return super.onTransact(code, data, reply, flags);
@@ -106,18 +112,6 @@ public interface ILauncherFixedOverlay extends IInterface {
 
             public IBinder asBinder() {
                 return mRemote;
-            }
-
-            public void closeOverlay(int options) throws RemoteException {
-                Parcel _data = Parcel.obtain();
-                try {
-                    _data.writeInterfaceToken(ILauncherFixedOverlay.class.getName());
-                    _data.writeInt(options);
-
-                    mRemote.transact(CLOSE_OVERLAY_TRANSACTION, _data, null, FLAG_ONEWAY);
-                } finally {
-                    _data.recycle();
-                }
             }
 
             @Override
@@ -166,13 +160,33 @@ public interface ILauncherFixedOverlay extends IInterface {
             }
 
             @Override
-            public void openOverlay(int options) throws RemoteException {
+            public void show() throws RemoteException {
                 Parcel _data = Parcel.obtain();
                 try {
                     _data.writeInterfaceToken(ILauncherFixedOverlay.class.getName());
-                    _data.writeInt(options);
+                    mRemote.transact(SHOW_TRANSACTION, _data, null, FLAG_ONEWAY);
+                } finally {
+                    _data.recycle();
+                }
+            }
 
-                    mRemote.transact(OPEN_OVERLAY_TRANSACTION, _data, null, FLAG_ONEWAY);
+            public void hide() throws RemoteException {
+                Parcel _data = Parcel.obtain();
+                try {
+                    _data.writeInterfaceToken(ILauncherFixedOverlay.class.getName());
+
+                    mRemote.transact(HIDE_TRANSACTION, _data, null, FLAG_ONEWAY);
+                } finally {
+                    _data.recycle();
+                }
+            }
+
+            @Override
+            public void isVisible() throws RemoteException {
+                Parcel _data = Parcel.obtain();
+                try {
+                    _data.writeInterfaceToken(ILauncherFixedOverlay.class.getName());
+                    mRemote.transact(IS_VISIBLE_TRANSACTION, _data, null, FLAG_ONEWAY);
                 } finally {
                     _data.recycle();
                 }

@@ -8,11 +8,14 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlay
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private companion object{
         private const val TAG="MainActivity"
     }
+    private var overlay: ILauncherFixedOverlay? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,10 +27,18 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG,"onServiceDisconnected")
             }
 
-            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-                Log.i(TAG,"onServiceConnected")
+            override fun onServiceConnected(name: ComponentName?, service: IBinder) {
+                overlay = ILauncherFixedOverlay.Stub.asInterface(service)
             }
         }, Context.BIND_AUTO_CREATE)
-        println()
+        var isVisible=true
+        testButton.setOnClickListener {
+            if(isVisible){
+                overlay?.hide()
+            } else {
+                overlay?.show()
+            }
+            isVisible=!isVisible
+        }
     }
 }
