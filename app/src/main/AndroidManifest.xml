@@ -23,10 +23,47 @@
 
         <service
             android:name=".fixed.service.LauncherOverlayService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote"/>
         <service
             android:name=".scroll.service.LauncherScrollOverlayService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote"/>
+
+        <!-- ======================================================================= -->
+        <!-- All the services related to the tab-->
+        <!-- ======================================================================= -->
+        <service android:name=".tab.home.LauncherOverlayHomeService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.cz.server.home.WINDOW_OVERLAY" />
+                <data android:scheme="app" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".tab.notification.LauncherOverlayNotificationService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.cz.server.notification.WINDOW_OVERLAY" />
+                <data android:scheme="app" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".tab.user.LauncherOverlayUserService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.cz.server.user.WINDOW_OVERLAY" />
+                <data android:scheme="app" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

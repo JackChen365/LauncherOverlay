@@ -28,9 +28,9 @@ public class FixedServiceClient {
     private boolean isResumed;
 
     public FixedServiceClient(Activity activity) {
+        hostActivity = activity;
         isResumed = false;
         isDestroyed = false;
-        hostActivity = activity;
         serviceIntent = new Intent(activity, LauncherOverlayService.class);
         serviceIntent.setPackage(activity.getPackageName());
         serviceConnection = new OverlayServiceConnection();
@@ -67,6 +67,21 @@ public class FixedServiceClient {
 
     private boolean isConnected() {
         return overlay != null;
+    }
+
+    public void disconnect(){
+        if(isConnected()){
+            if(null!=applicationConnection){
+                try {
+                    hostActivity.getApplicationContext().unbindService(applicationConnection);
+                } catch (IllegalArgumentException e){
+                    Log.w(TAG,"unbindService failed.");
+                }
+            }
+            if (null!=serviceConnection) {
+                hostActivity.unbindService(serviceConnection);
+            }
+        }
     }
 
     public void reconnect() {

@@ -13,8 +13,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.cz.android.sample.api.Register;
 import com.cz.launcher.overlay.sample.R;
 
+@Register(title="DualScreenSample")
 public class DualScreenSampleActivity extends AppCompatActivity {
 
     @Override

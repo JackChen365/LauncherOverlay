@@ -18,7 +18,7 @@ import com.cz.launcher.overlay.sample.fixed.service.LauncherOverlayService;
 
 public class TabServiceClient {
     private static final String TAG="TabServiceClient";
-    private static final String SERVER_PACKAGE_NAME="com.cz.launcher.overlay.server";
+    private static final String SERVER_PACKAGE_NAME="com.cz.launcher.overlay.sample";
     private static AppServiceConnection applicationConnection;
 
     private final Activity hostActivity;
@@ -67,12 +67,19 @@ public class TabServiceClient {
         }
     }
 
-    private boolean isConnected() {
+    public boolean isConnected() {
         return overlay != null;
     }
 
-    public void isVisible(){
-
+    public boolean isVisible(){
+        try {
+            if(isConnected()){
+                return overlay.isVisible();
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void show(){
@@ -91,6 +98,21 @@ public class TabServiceClient {
                 overlay.hide();
             } catch (RemoteException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public void disconnect(){
+        if(isConnected()){
+            if(null!=applicationConnection){
+                try {
+                    hostActivity.getApplicationContext().unbindService(applicationConnection);
+                } catch (IllegalArgumentException e){
+                    Log.w(TAG,"unbindService failed.");
+                }
+            }
+            if (null!=serviceConnection) {
+                hostActivity.unbindService(serviceConnection);
             }
         }
     }

@@ -35,6 +35,10 @@ public class OverlayComponent extends DialogOverlayContextWrapper {
     public void onCreate(Bundle bundle) {
     }
 
+    public boolean isAttachToWindow() {
+        return null!=decorView;
+    }
+
     @CallSuper
     public void onPreCreated(WindowManager.LayoutParams layoutParams) {
         window.setWindowManager(null, layoutParams.token,
@@ -103,8 +107,7 @@ public class OverlayComponent extends DialogOverlayContextWrapper {
     }
 
     public final void setTouchable(boolean touchable) {
-        final int flag = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+        final int flag = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
         if (touchable) {
             window.clearFlags(flag);
         } else {
@@ -118,11 +121,15 @@ public class OverlayComponent extends DialogOverlayContextWrapper {
 
     public void show() {
         decorView.setVisibility(View.VISIBLE);
-        setTouchable(false);
+        setTouchable(true);
     }
 
     public void hide(){
         decorView.setVisibility(View.GONE);
         setTouchable(false);
+    }
+
+    public boolean isVisible(){
+        return null!=decorView&&View.VISIBLE == decorView.getVisibility();
     }
 }

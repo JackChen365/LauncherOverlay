@@ -3,11 +3,13 @@ package com.cz.launcher.overlay.sample.scroll
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.cz.android.sample.api.Register
 import com.cz.launcher.overlay.sample.R
 import kotlinx.android.synthetic.main.activity_scroll_sample.*
 
+@Register(title = "Scroll sample")
 class ScrollSampleActivity : AppCompatActivity() {
-    private var launcherClient: ScrollServiceClient? = null
+    private var launcherClient: ScrollServiceClient?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scroll_sample)
@@ -70,7 +72,7 @@ class ScrollSampleActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        launcherClient?.disconnect()
         super.onDestroy()
-        launcherClient?.onDestroy()
     }
 }

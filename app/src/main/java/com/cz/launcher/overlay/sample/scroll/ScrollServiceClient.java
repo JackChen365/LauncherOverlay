@@ -77,6 +77,21 @@ public class ScrollServiceClient {
         }
     }
 
+    public void disconnect(){
+        if(isConnected()){
+            if(null!=applicationConnection){
+                try {
+                    hostActivity.getApplicationContext().unbindService(applicationConnection);
+                } catch (IllegalArgumentException e){
+                    Log.w(TAG,"unbindService failed.");
+                }
+            }
+            if (null!=serviceConnection) {
+                hostActivity.unbindService(serviceConnection);
+            }
+        }
+    }
+
     public final void onAttachedToWindow() {
         if (isDestroyed) {
             return;

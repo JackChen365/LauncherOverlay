@@ -11,11 +11,12 @@ import com.cz.launcher.overlay.sample.R;
 @Register(title="NestedWindow")
 public class NestedWindowSampleActivity extends Activity {
     private static final String TAG="NestedWindowSampleActivity";
+    private FixedServiceClient serviceClient=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nested_window_sample);
-        FixedServiceClient serviceClient = new FixedServiceClient(this);
+        serviceClient = new FixedServiceClient(this);
         serviceClient.reconnect();
         View testButton=findViewById(R.id.testButton);
         testButton.setOnClickListener(new View.OnClickListener() {
@@ -24,5 +25,11 @@ public class NestedWindowSampleActivity extends Activity {
                 Toast.makeText(getApplicationContext(),"Click!",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        serviceClient.disconnect();
+        super.onDestroy();
     }
 }

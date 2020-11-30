@@ -1,4 +1,3 @@
-include ':server'
 include ':library'
 include ':app'
 rootProject.name = "LauncherOverlay"

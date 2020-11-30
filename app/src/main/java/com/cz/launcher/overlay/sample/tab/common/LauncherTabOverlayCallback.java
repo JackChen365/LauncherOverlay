@@ -1,4 +1,4 @@
-package com.cz.launcher.overlay.sample.fixed.service;
+package com.cz.launcher.overlay.sample.tab.common;
 
 
 import android.os.Bundle;
@@ -10,15 +10,14 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 
 import com.cz.launcher.overlay.library.component.OverlayComponent;
-import com.cz.launcher.overlay.library.fixed.ILauncherFixedOverlayCallback;
 
 /**
  * @author Created by cz
  * @date 11/20/20 11:39 AM
  * @email bingo110@126.com
  */
-public class LauncherOverlayCallback implements Handler.Callback {
-    private static final String TAG=LauncherOverlayCallback.class.getSimpleName();
+public class LauncherTabOverlayCallback implements Handler.Callback {
+    private static final String TAG= LauncherTabOverlayCallback.class.getSimpleName();
     public static final int MSG_SHOW_OVERLAY=1;
     public static final int MSG_HIDE_OVERLAY=2;
     public static final int MSG_ATTACH_TO_WINDOW = 3;
@@ -32,7 +31,7 @@ public class LauncherOverlayCallback implements Handler.Callback {
     public static final int MSG_IS_VISIBLE=11;
     private OverlayComponent overlayComponent;
 
-    public LauncherOverlayCallback(OverlayComponent overlayComponent) {
+    public LauncherTabOverlayCallback(OverlayComponent overlayComponent) {
         this.overlayComponent = overlayComponent;
     }
 

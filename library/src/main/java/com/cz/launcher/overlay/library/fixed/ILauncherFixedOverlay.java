@@ -20,7 +20,7 @@ public interface ILauncherFixedOverlay extends IInterface {
 
     void hide() throws RemoteException;
 
-    void isVisible() throws RemoteException;
+    boolean isVisible() throws RemoteException;
 
     void onWindowAttached(WindowManager.LayoutParams attrs, ILauncherFixedOverlayCallback callbacks, int options) throws RemoteException;
 
@@ -97,6 +97,9 @@ public interface ILauncherFixedOverlay extends IInterface {
                     return true;
                 case IS_VISIBLE_TRANSACTION:
                     data.enforceInterface(ILauncherFixedOverlay.class.getName());
+                    boolean _result = this.isVisible();
+                    reply.writeNoException();
+                    reply.writeInt(((_result)?(1):(0)));
                     return true;
                 default:
                     return super.onTransact(code, data, reply, flags);
@@ -182,14 +185,21 @@ public interface ILauncherFixedOverlay extends IInterface {
             }
 
             @Override
-            public void isVisible() throws RemoteException {
-                Parcel _data = Parcel.obtain();
+            public boolean isVisible() throws RemoteException {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                boolean _result;
                 try {
                     _data.writeInterfaceToken(ILauncherFixedOverlay.class.getName());
-                    mRemote.transact(IS_VISIBLE_TRANSACTION, _data, null, FLAG_ONEWAY);
-                } finally {
+                    mRemote.transact(IS_VISIBLE_TRANSACTION, _data, _reply, 0);
+                    _reply.readException();
+                    _result = (0!=_reply.readInt());
+                }
+                finally {
+                    _reply.recycle();
                     _data.recycle();
                 }
+                return _result;
             }
 
             @Override
