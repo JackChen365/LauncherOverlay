@@ -12,7 +12,7 @@ We have four different demos.
 
 ### Sample
 
-[download APK](https://github.com/momodae/LibraryResources/blob/master/LauncherOverlay/file/app-debug.apk)
+[download APK](https://github.com/momodae/LibraryResources/blob/master/LauncherOverlay/file/app-debug.apk?raw=true)
 
 ### Image
 
